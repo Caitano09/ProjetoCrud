@@ -1,8 +1,12 @@
 const pessoas = require('../models/pessoas')
 
 const index = async(connection, req, res) => {
-    const pessoasRetornadas = await pessoas.findAll(connection)
-    res.render('pessoas/index',{pessoas: pessoasRetornadas})
+    params = {
+        pageSize: req.query.pageSize || 50,
+        currentPage: req.query.page || 0
+    }
+    const pessoasRetornadas = await pessoas.findAll(connection, params)
+    res.render('pessoas/index',{results: pessoasRetornadas})
     
 }
 

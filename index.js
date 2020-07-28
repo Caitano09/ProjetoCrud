@@ -28,6 +28,5 @@ app.set('view engine', 'ejs')
 
 
 connection.connect((err)=>{
-    console.log(err)
     app.listen(port, ()=>console.log('CRUD listening on port: '+port))
 })
