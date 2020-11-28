@@ -4,7 +4,7 @@ const findAll = (connection, params) => {
         const pageSize = params.pageSize
         connection.query('select count(*) as total from pessoas', (err, result) => {
             const total = result[0].total
-            const totalPages = parseInt(total / pageSize)
+            const totalPages = Math.ceil(total / pageSize)
             if (err) {
                 reject(err)
             } else {
@@ -39,6 +39,18 @@ const findById = (connection, id) => {
                     resolve({})
                 }
 
+            }
+        })
+    })
+}
+
+const findByName = async(connection, nome) => {
+    return new Promise((resolve, reject) => {
+        connection.query(`select * from pessoas where nome = '${nome}' `, (err, result) =>{
+            if(err){
+                reject(err)
+            }else{
+                resolve(result)
             }
         })
     })
@@ -84,6 +96,7 @@ const update = (connection, id, data) => {
 module.exports = {
     findAll,
     findById,
+    findByName,
     deleteOne,
     create,
     update

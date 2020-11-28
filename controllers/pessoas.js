@@ -1,4 +1,5 @@
 const pessoas = require('../models/pessoas')
+const data = require('../utils/dataFormatada')
 
 const index = async(connection, req, res) => {
     params = {
@@ -26,6 +27,7 @@ const createProcess = async(connection, req, res)=>{
 
 const updateForm = async(connection, req, res) =>{
     const pessoa = await pessoas.findById(connection, req.params.id)
+    pessoa.nascimento = data.dataFormadata(pessoa.nascimento)
     res.render('pessoas/update', {pessoa})
 }
 
@@ -34,11 +36,17 @@ const updateProcess = async(connection, req, res)=>{
     res.redirect('/pessoas')
 } 
 
+const search = async (connection, req, res) => {
+    const pessoasRetornadas = await pessoas.findByName(connection, req.query.nome)
+    res.render('pessoas/search', { results: pessoasRetornadas })
+}
+
 module.exports = {
     index,
     deleteOne,
     createForm,
     createProcess,
     updateForm,
-    updateProcess
+    updateProcess,
+    search
 }
