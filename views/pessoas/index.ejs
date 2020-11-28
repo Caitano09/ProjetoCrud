@@ -1,27 +1,30 @@
 <%- include('../partials/header') %>
 
-<h1>Pessoas</h1>
-<p><a href="/pessoas/create">Nova Pessoa</a></p>
+<h1>People</h1>
+<p><a class="btn btn-outline-primary" href="/pessoas/create">Add New Person</a></p>
+
 <table class="table table-striped table-hover table-bordered ">
     <tr>
-        <th>Nome</th>
-        <th>Ações</th>
+        <th>Name</th>
+        <th>Role</th>
+        <th>Actions</th>
     </tr>
     <% results.data.map(pessoa => { %>
     <tr>
         <td><%= pessoa.nome %></td>
+        <td><%- pessoa.cargo %></td>
         <td>
             <div class="btn-group" role="group" aria-label="...">
-                <a type="button" class="btn btn-default" href="pessoas/update/<%- pessoa.id %>">Editar</a>
-                <a type="button" class="btn btn-default" href="pessoas/delete/<%- pessoa.id %>" onclick="return confirm('Deseja realmente Excluir?')">Excluir</a>
-              </div>
+                <a href="/pessoas/update/<%- pessoa.id %>" class="btn btn-outline-secondary" role="button">Edit</a>
+                <a href="/pessoas/delete/<%- pessoa.id %>" class="btn btn-outline-secondary" onclick="return confirm('Do you really want delete?')">Delete</a>
+            </div>
         </td>
     </tr>
     <% }) %>
 
 </table>
 
-Mostrar: <a href="/pessoas?pageSize=10">10</a> <a href="/pessoas?pageSize=50">50</a> <a href="/pessoas?pageSize=100">100</a>
+Nº registers per page: <a href="/pessoas?pageSize=10">10</a> | <a href="/pessoas?pageSize=50">50</a> | <a href="/pessoas?pageSize=100">100</a>
 
 <nav aria-label="Navegação de página exemplo">
     <ul class="pagination">
